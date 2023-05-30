@@ -1,0 +1,186 @@
+
+
+--1-Seleccionar tablas  con SELECT
+/* Listar todos los registros de la tabla cliente */
+SELECT * 
+FROM cliente;
+
+/* Listar todos los registros de la tabla platillo*/
+SELECT * 
+FROM platillo;
+
+/* Listar todos los registros de la tabla empleado */
+SELECT * 
+FROM insumo;
+
+/* Listar todos los registros de la tabla venta */
+SELECT * 
+FROM venta;
+/* Listar todos los registros de la tabla ventadetalle */
+SELECT * 
+FROM venta_detalle;
+
+---2-Seleccionar algunas columnas  de las tablas
+
+/* Listar nombres, apellidos y celular de todas los  clientes*/
+SELECT
+    nombre,
+    apellido_paterno,
+    celular
+FROM cliente;
+
+/* Listar el nombre del platillo, precio y su respectivo stock de la tabla platillo */
+SELECT
+    nombre,
+    precio,
+    stock
+FROM platillo;
+/* Listar la fecha de venta */
+SELECT fecha_venta AS "Fecha Venta"
+FROM venta;
+
+/* calcular los registros */
+SELECT COUNT(*) FROM cliente;
+
+/*sumar  los precio de cada platillo  */
+SELECT SUM(precio) FROM platillo;
+
+/* Devolver  el valor mínimo de la columna "precio" en la tabla "platillo".*/
+SELECT MIN(precio) FROM platillo;
+
+/* listar los primeros  registros de la tabla empleado */
+SELECT nombre, apellidos
+FROM empleado
+FETCH FIRST 5 ROWS ONLY;
+
+/* Calcular el total por cada platillo */
+SELECT 
+     Nombre as "platillo",
+     precio as "Precio",
+     stock as "Stock",
+     (precio *stock) as "Total"
+FROM platillo;
+--------------------------------------------------FIN CLAUSULA SELECT
+/* CLAUSULA WHERE */
+---Operación de comparación
+/* Listar a los clientes de nombre = JHON */
+SELECT * FROM cliente
+WHERE nombre = 'JHON';
+
+/* listar a los clientes  que  son  diferentes  al nombre JHON */
+SELECT * FROM cliente
+WHERE nombre <> 'JHON';
+
+/* listar los precios   mayores q 12 de los platillos */
+SELECT * FROM platillo
+WHERE precio> '12';
+/*listar los precios   menores  q 15 de los platillos  */
+SELECT * FROM platillo
+WHERE precio< '15';
+/*listar los precios   mayor o igual de 15 de los platillos   */
+SELECT * FROM platillo
+WHERE precio>= '15';
+/* listar los precios   menor  o igual de 15 de los platillos */
+SELECT * FROM platillo
+WHERE precio<= '15';
+/* listar los platillos cuyo es precio es  de  12 y 15 */
+SELECT * FROM platillo
+WHERE precio BETWEEN '12' AND '15';
+/* listar a los  clientes  cuyo inicial e j% */
+SELECT * FROM cliente
+WHERE nombre LIKE 'J%';
+/*listar a los clientes cuyo nombres 'JHON', 'PEDRO', 'RONALD' */
+SELECT * FROM cliente
+WHERE nombre IN ('JHON', 'PEDRO', 'RONALD');
+/* listar los platillos  que  no tengan este  precio '15'y '20' */
+SELECT * FROM platillo
+WHERE precio NOT IN ('15', '20');
+
+/* listar los clientes que tengan espacios en blancos  */
+
+SELECT * FROM cliente
+WHERE nombre IS   NULL;
+
+/* listar  los clientes  que no tengan espacios  en blanco */
+
+SELECT * FROM cliente
+WHERE nombre IS NOT  NULL;    
+-------------------fin
+---3Clausula ORDER BY
+
+/* ordenar los platillos por su precio de forma ascendente (del más barato al más caro),  */
+SELECT * FROM platillo
+ORDER BY precio ASC;
+/* ordenar los platillos por su precio de forma descendente (del más caro al más barato)  */
+SELECT * FROM platillo
+ORDER BY precio DESC;
+/*  ordenar los platillos por su nombre y  precio de forma ascendente y descendente  */
+SELECT * FROM platillo
+ORDER BY nombre ASC, precio DESC;
+----------------fin
+---------------Las funciones de una sola fila
+--(Funciones de cadena)
+--listar el nombre completo  de empleado
+SELECT nombre || ' ' || apellidos AS "NOMBRE COMPLETO"
+FROM empleado;
+-----listar la logitud   del cliente 
+SELECT LENGTH(nombre) AS longitud_nombre
+FROM cliente;
+-----listar  los nombres de los clientes en mayuscula
+SELECT UPPER(nombre) AS nombre_mayúscula
+FROM empleado;
+------listar  los nombres de los clientes en minuscula
+SELECT LOWER(nombre) AS nombre_minúscula
+FROM empleado;
+----listar las primeras  iniciale  de los nombre de los clientes
+SELECT SUBSTR(nombre, 1, 2) AS subcadena_nombre
+FROM empleado;
+---------cambiar la direccion de primer cliente
+SELECT id_cliente, REPLACE(direccion, 'AV.SANTA ROSA', 'URB.SANTA ROSA') AS nueva_direccion
+FROM cliente;
+
+---
+SELECT TRIM(nombre) AS nombre_sin_espacios
+FROM empleado;
+
+---(Funciones numéricas)
+
+---obtener  el pecio absoluto de   insumo
+SELECT id_insumo, nombre, ABS(precio) AS precio_absoluto
+FROM insumo;
+---- obtener  el precio truncado de  insumo
+SELECT id_insumo, nombre, TRUNC(precio) AS precio_truncado
+FROM insumo;
+---obtener el precio redondeado de insumo
+SELECT id_insumo, nombre, CEIL(precio) AS precio_redondeado
+FROM insumo;
+---calcular  precio de los plaillos a la potencia 2
+SELECT id_platillo, nombre,POWER(precio, 2) AS precio_al_cuadrado
+FROM platillo;
+-----obtener la raiz cuadrada de los precios de los platillos
+SELECT id_platillo, nombre, SQRT(precio) AS raiz_cuadrada
+FROM platillo;
+----------------------------------fin
+------- (Funciones de fecha)
+----ver la fecha del sistema 
+SELECT SYSDATE AS fecha_actual
+FROM dual;
+-------obtener la  fecha actual sin la hora
+SELECT fecha_venta
+FROM venta
+WHERE fecha_venta = CURRENT_DATE;
+------modificar la fecha
+
+SELECT TO_CHAR(CURRENT_DATE, 'MM-DD-YYYY') AS fecha_actual
+FROM venta;
+--obtener  el año de la venta
+SELECT EXTRACT(YEAR FROM CURRENT_DATE) AS año_actual
+FROM venta;
+-----auntar 2 mese a la fecha
+SELECT ADD_MONTHS(CURRENT_DATE, 2) AS nueva_fecha
+FROM venta;
+-------ver la ultima fecha d eeste mes
+SELECT LAST_DAY(CURRENT_DATE) AS ultima_fecha_mes
+FROM venta;
+                                         
+             
