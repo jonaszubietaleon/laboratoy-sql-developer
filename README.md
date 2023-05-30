@@ -1,1 +1,0 @@
-# laboratoy-sql-developer
