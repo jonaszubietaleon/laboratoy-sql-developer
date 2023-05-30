@@ -1,3 +1,47 @@
+------------------------------------para conectar a la base de datos
+
+/*NOTA RAPIDA
+USUARIO:     ADMIN
+CONTRASEÑA:  ADMIN     
+*/
+
+
+/* Crear tablespace dbWasi&suyay */
+CREATE TABLESPACE tbs_dbWasi&Suyay
+DATAFILE 'tbs_dbWasi&Suyay'
+SIZE 500M;
+
+/* Permitor ejecución de script */
+ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+
+/* Crear usuario */
+CREATE USER ADMIN
+IDENTIFIED BY ADMIN
+DEFAULT TABLESPACE tbs_dbWasi&Suyay
+TEMPORARY TABLESPACE TEMP
+QUOTA UNLIMITED ON tbs_dbWasi&Suyay;
+
+/* Determinar los privilegios del usuario */
+GRANT CREATE SESSION TO ADMIN;
+GRANT CREATE TABLE TO ADMIN;
+GRANT CREATE VIEW TO ADMIN;
+GRANT CREATE PROCEDURE TO ADMIN;
+GRANT CREATE TRIGGER TO ADMIN;
+GRANT CREATE SEQUENCE TO ADMIN;
+GRANT CREATE JOB TO ADMIN;
+GRANT UNLIMITED TABLESPACE TO ADMIN;
+
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 # laboratoy-sql-developer
 /*Eliminar tablas en orden:
 DROP TABLE INSUMO;
